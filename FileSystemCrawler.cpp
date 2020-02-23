@@ -76,19 +76,19 @@ void print_map(unordered_map<string, set<string>>& map) {
 	}
 }
 
-string recursive_generator(string file_name, unordered_map<string, set<string>>& map, vector<string>& paths) {
+string recursive_path_generator(string file_name, unordered_map<string, set<string>>& map, vector<string>& paths) {
 	string full_path = "";
 	if (map.find(file_name) == map.end()) {
 		return "";
 	}
 	set<string> parents = map.find(file_name)->second;
 	if (parents.size() == 1) {
-		return recursive_generator(*parents.begin(), map, paths) + "/" + file_name;
+		return recursive_path_generator(*parents.begin(), map, paths) + "/" + file_name;
 	}
 	else {
 		for (auto parent : parents) {
 			string c = parent;
-			paths.push_back(recursive_generator(parent, map, paths) + "/" + file_name);
+			paths.push_back(recursive_path_generator(parent, map, paths) + "/" + file_name);
 		}
 	}
 	return "1";
@@ -96,8 +96,11 @@ string recursive_generator(string file_name, unordered_map<string, set<string>>&
 
 void generate_path(string file_name, string path, unordered_map<string, set<string>>& map) {
 	vector<string> paths;
-	string out = recursive_generator(file_name, map, paths);
-	if (out != "1") {
+	string out = recursive_path_generator(file_name, map, paths);
+	if (out == "") {
+		cout << "'" << file_name << "' does not exist under " << path << endl;
+	}
+	else if (out != "1") {
 		cout << path << out << endl;
 	}
 	for (int i = 0; i < paths.size(); i++) {
@@ -146,6 +149,6 @@ int main() {
 	//auto t = get_parents("fil.dat", file_system_index);
 	vector<string> paths;
 	//generate_path("file.dat", root_path, file_system_index);
-	generate_path("file.dat", root_path, file_system_index);
+	generate_path("filez.dat", root_path, file_system_index);
 
 }
