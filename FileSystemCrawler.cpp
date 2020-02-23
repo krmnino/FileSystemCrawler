@@ -76,7 +76,47 @@ void print_map(unordered_map<string, set<string>>& map) {
 	}
 }
 
-void navigate_curr_dir(string path_name, unordered_map<string, set<string>> &map) {
+string recursive_generator(string file_name, unordered_map<string, set<string>>& map, vector<string>& paths) {
+	string full_path = "";
+	if (map.find(file_name) == map.end()) {
+		return "";
+	}
+	set<string> parents = map.find(file_name)->second;
+	if (parents.size() == 1) {
+		return recursive_generator(*parents.begin(), map, paths) + "/" + file_name;
+		string build = recursive_generator(*parents.begin(), map, paths) + "/" + file_name;
+	}
+	else {
+		for (auto parent : parents) {
+			string c = parent;
+			paths.push_back(recursive_generator(parent, map, paths) + "/" + file_name);
+		}
+	}
+	return "1";
+}
+
+void generate_path(string file_name, string path, unordered_map<string, set<string>>& map) {
+	vector<string> paths;
+	string out = recursive_generator(file_name, map, paths);
+	if (out != "1") {
+		cout << path << out << endl;
+	}
+	for (int i = 0; i < paths.size(); i++) {
+		cout << path << paths[i] << endl;
+	}
+}
+
+set<string> get_parents(string file_name, unordered_map<string, set<string>>& map) {
+	unordered_map<string, set<string>>::iterator iterator = map.find(file_name);
+	if (iterator == map.end()) {
+		cout << "No element present in map" << endl;
+	}
+	else {
+		return iterator->second;
+	}
+}
+
+void navigate_curr_dir(string path_name, unordered_map<string, set<string>>& map) {
 	for (auto& entry : fs::directory_iterator(path_name)) {
 		string dir_file_name = entry.path().string();
 		string parent = path_name.substr(path_name.find_last_of("/") + 1, path_name.length());
@@ -97,10 +137,16 @@ void navigate_curr_dir(string path_name, unordered_map<string, set<string>> &map
 
 int main() {
 	unordered_map<string, set<string>> file_system_index;
-	navigate_curr_dir("D:/temporary/root", file_system_index);
+	string root_path = "C:/Users/KURT/github/FileSystemCrawler/root";
+	navigate_curr_dir(root_path, file_system_index);
 	print_map(file_system_index);
 	cout << endl;
-	save_map("D:/temporary/root", file_system_index);
-	unordered_map<string, set<string>> map_read = read_map("root.map");
-	print_map(map_read);
+	//save_map("C:/Users/KURT/Documents/Workspaces/visual_studio_workspace/FileSystemCrawler/FileSystemCrawler", file_system_index);
+	//unordered_map<string, set<string>> map_read = read_map("root.map");
+	//print_map(map_read);
+	//auto t = get_parents("fil.dat", file_system_index);
+	vector<string> paths;
+	//generate_path("file.dat", root_path, file_system_index);
+	generate_path("dir3", root_path, file_system_index);
+
 }
