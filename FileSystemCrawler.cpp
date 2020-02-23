@@ -84,7 +84,6 @@ string recursive_generator(string file_name, unordered_map<string, set<string>>&
 	set<string> parents = map.find(file_name)->second;
 	if (parents.size() == 1) {
 		return recursive_generator(*parents.begin(), map, paths) + "/" + file_name;
-		string build = recursive_generator(*parents.begin(), map, paths) + "/" + file_name;
 	}
 	else {
 		for (auto parent : parents) {
@@ -147,6 +146,6 @@ int main() {
 	//auto t = get_parents("fil.dat", file_system_index);
 	vector<string> paths;
 	//generate_path("file.dat", root_path, file_system_index);
-	generate_path("dir3", root_path, file_system_index);
+	generate_path("file.dat", root_path, file_system_index);
 
 }
