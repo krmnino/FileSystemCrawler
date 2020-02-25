@@ -1,14 +1,13 @@
 TARGET = fsc
 OBJS = \
-  map_file_handling.o \
-  FileSystemCrawler.o
+	FileSystemCrawler.o
 
 CXX = g++
-CXXFLAGS = -std=gnu++1z -Wall -Wextra -pedantic-errors
+CXXFLAGS = -std=c++17 #-lstdc++fs
 LDFLAGS =
 
 $(TARGET):	$(OBJS)
-			$(CC) $(OBJS) $(LDFLAGS) -o $(TARGET) lstdc++fs
+			-o $(TARGET) $(OBJS)
 
 clean:
 		rm -f *~ *.o $(TARGET)
