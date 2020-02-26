@@ -1,19 +1,21 @@
-#g++ -std=c++17 FileSystemCrawler.cpp -o output -lstdc++fs
-#    ^^^^^ use this recipe, it works for linux at least
+TARGET = fscrawler
 
-TARGET = fsc
-OBJS = \
-	FileSystemCrawler.o
+OBJS = FileSystemCrawler.o
 
 CXX = g++
-CXXFLAGS = -std=c++17 #-lstdc++fs
-LDFLAGS =
+CXXFLAGS = -std=c++17
+LDFLAGS = -lstdc++fs
 
-$(TARGET):	$(OBJS)
-			-o $(TARGET) $(OBJS)
+$(TARGET):	$(OBJS)	
+		$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET) $(LDFLAGS)
+
+clean_obj: 
+		rm -f *.o
 
 clean:
-		rm -f *~ *.o $(TARGET)
+		rm -f *.o $(TARGET)
 
-FileSystemCrawler.o:                FileSystemCrawler.cpp
-map_file_handling.o:                map_file_handling.cpp
+FileSystemCrawler.o: 	FileSystemCrawler.cpp
+
+#Recipe used in command line
+#g++ -std=c++17 FileSystemCrawler.cpp -o output -lstdc++fs

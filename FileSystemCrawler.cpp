@@ -137,7 +137,10 @@ void navigate_curr_dir(string path_name, unordered_map<string, set<string>>& map
 
 int main() {
 	unordered_map<string, set<string>> file_system_index;
-	string root_path = "/home/kurt/github/FileSystemCrawler/root";
+	//string root_path = "D:/temporary/root"; //main pc
+	string root_path = "/home/kurt/github/FileSystemCrawler/root"; //linux machine
+	//string root_path = "C:/Users/KURT/github/FileSystemCrawler/root"; //secondary pc
+	//string root_path = "C:/Users/kurt_/github/FileSystemCrawler/root" //surface pro
 	navigate_curr_dir(root_path, file_system_index);
 	print_map(file_system_index);
 	cout << endl;
@@ -147,5 +150,5 @@ int main() {
 	//auto t = get_parents("fil.dat", file_system_index);
 	vector<string> paths;
 	//generate_path("file.dat", root_path, file_system_index);
-	generate_path("filez.dat", root_path, file_system_index);
+	generate_path("file.dat", root_path, file_system_index);
 }
