@@ -113,9 +113,7 @@ set<string> get_parents(string file_name, unordered_map<string, set<string>>& ma
 	if (iterator == map.end()) {
 		cout << "No element present in map" << endl;
 	}
-	else {
-		return iterator->second;
-	}
+	return iterator->second;
 }
 
 void navigate_curr_dir(string path_name, unordered_map<string, set<string>>& map) {
@@ -139,7 +137,7 @@ void navigate_curr_dir(string path_name, unordered_map<string, set<string>>& map
 
 int main() {
 	unordered_map<string, set<string>> file_system_index;
-	string root_path = "C:/Users/KURT/github/FileSystemCrawler/root";
+	string root_path = "/home/kurt/github/FileSystemCrawler/root";
 	navigate_curr_dir(root_path, file_system_index);
 	print_map(file_system_index);
 	cout << endl;
