@@ -4,7 +4,6 @@
 #include <filesystem>
 #include <fstream>
 #include <string>
-#include "map_file_handling.cpp"
 
 using namespace std;
 namespace fs = filesystem;
