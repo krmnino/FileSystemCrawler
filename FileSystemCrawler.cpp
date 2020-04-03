@@ -135,10 +135,21 @@ void navigate_curr_dir(string path_name, unordered_map<string, set<string>>& map
 	}
 }
 
+void command_line() {
+	string input = "";
+	while (true) {
+		cout << ">> ";
+		cin >> input;
+		if (input == "help") {
+			cout << "Exiting program...";
+		}
+	}
+}
+
 int main() {
 	unordered_map<string, set<string>> file_system_index;
-	//string root_path = "D:/temporary/root"; //main pc
-	string root_path = "/home/kurt/github/FileSystemCrawler/root"; //linux machine
+	string root_path = "D:/temporary/root"; //main pc
+	//string root_path = "/home/kurt/github/FileSystemCrawler/root"; //linux machine
 	//string root_path = "C:/Users/KURT/github/FileSystemCrawler/root"; //secondary pc
 	//string root_path = "C:/Users/kurt_/github/FileSystemCrawler/root" //surface pro
 	navigate_curr_dir(root_path, file_system_index);
